@@ -42,24 +42,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         et_data_uname= (EditText)findViewById(R.id.uname);
         et_data_upass = (EditText)findViewById(R.id.upass);
         stringHashMap = new HashMap<>();
-       //Button Login = (Button) findViewById(R.id.login);
        TextView Register = (TextView) findViewById(R.id.register);
 
 
-//
-//       Login.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               Intent intent = new Intent(Login.this, MainActivity.class);
-//               startActivity(intent);
-//           }
-//       });
-//
        Register.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -69,13 +57,6 @@ public class Login extends AppCompatActivity {
        });
 
     }
-//
-//    public void loginGET(View view) {
-//        stringHashMap.put("username", et_data_uname.getText().toString());
-//        stringHashMap.put("password", et_data_upass.getText().toString());
-//        new Thread(getRun).start();
-//
-//    }
 
     public void loginPOST(View view) {
         stringHashMap.put("username", et_data_uname.getText().toString());
@@ -87,15 +68,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-//    Runnable getRun = new Runnable() {
-//
-//        @Override
-//        public void run() {
-//            // TODO Auto-generated method stub
-//            requestGet(stringHashMap);
-//        }
-//    };
-//
+
 
 
     Runnable postRun = new Runnable() {
@@ -109,56 +82,6 @@ public class Login extends AppCompatActivity {
 
 
 
-/*
-    private void requestGet(HashMap<String, String> paramsMap) {
-        try {
-            String baseUrl = "http://172.17.189.143:8080/Test/servlet/LoginDateServlet?";
-            StringBuilder tempParams = new StringBuilder();
-            int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos > 0) {
-                    tempParams.append("&");
-                }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
-                pos++;
-            }
-
-            Log.e(TAG,"params--get-->>"+tempParams.toString());
-            String requestUrl = baseUrl + tempParams.toString();
-            // 新建一个URL对象
-            URL url = new URL(requestUrl);
-            // 打开一个HttpURLConnection连接
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            // 设置连接主机超时时间
-            urlConn.setConnectTimeout(5 * 1000);
-            //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
-            // 设置是否使用缓存  默认是true
-            urlConn.setUseCaches(true);
-            // 设置为Post请求
-            urlConn.setRequestMethod("GET");
-            //urlConn设置请求头信息
-            //设置请求中的媒体类型信息。
-            urlConn.setRequestProperty("Content-Type", "application/json");
-            //设置客户端与服务连接类型
-            urlConn.addRequestProperty("Connection", "Keep-Alive");
-            // 开始连接
-            urlConn.connect();
-            // 判断请求是否成功
-            if (urlConn.getResponseCode() == 200) {
-                // 获取返回的数据
-                String result = streamToString(urlConn.getInputStream());
-                Log.e(TAG, "Get方式请求成功，result--->" + result);
-            } else {
-                Log.e(TAG, "Get方式请求失败");
-            }
-            // 关闭连接
-            urlConn.disconnect();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-*/
 
 
     private void requestPost(HashMap<String, String> paramsMap) {

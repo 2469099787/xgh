@@ -36,16 +36,12 @@ public class register extends AppCompatActivity {
     private EditText ConfirmPassword;
     private TextView Verification;
     private TextView LoginNow;
-    private Button Register;
     private HashMap<String, String> stringHashMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_test);
-
         LoginNow = (TextView) findViewById(R.id.LoginNow);
-        //Button Register = (Button) findViewById(R.id.regist);
-
         et_data_uname = (EditText) findViewById(R.id.et_data_uname);
         et_data_upass = (EditText) findViewById(R.id.et_data_upass);
         stringHashMap = new HashMap<>();
@@ -59,19 +55,10 @@ public class register extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//
-//        //没有账号，注册
-//        Register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(register.this,MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
     }
 
-    public void loginGET(View view) {
+    public void registGET(View view) {
         stringHashMap.put("username", et_data_uname.getText().toString());
         stringHashMap.put("password", et_data_upass.getText().toString());
         new Thread(getRun).start();
@@ -80,14 +67,6 @@ public class register extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-    public void loginPOST(View view) {
-        stringHashMap.put("username", et_data_uname.getText().toString());
-        stringHashMap.put("password", et_data_upass.getText().toString());
-
-        new Thread(postRun).start();
-    }
-
 
     Runnable getRun = new Runnable() {
 
@@ -98,90 +77,9 @@ public class register extends AppCompatActivity {
         }
     };
 
-
-
-    Runnable postRun = new Runnable() {
-
-        @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            requestPost(stringHashMap);
-        }
-    };
-
-
-
-
-    private void requestPost(HashMap<String, String> paramsMap) {
-        try {
-            String baseUrl = "http://172.17.128.27/Test/servlet/LoginDateServlet";
-            //合成参数
-            StringBuilder tempParams = new StringBuilder();
-            int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos >0) {
-                    tempParams.append("&");
-                }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
-                pos++;
-            }
-            String params = tempParams.toString();
-            Log.e(TAG,"params--post-->>"+params);
-            // 请求的参数转换为byte数组
-//            byte[] postData = params.getBytes();
-            // 新建一个URL对象
-            URL url = new URL(baseUrl);
-            // 打开一个HttpURLConnection连接
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            // 设置连接超时时间
-            urlConn.setConnectTimeout(5 * 1000);
-            //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
-            // Post请求必须设置允许输出 默认false
-            urlConn.setDoOutput(true);
-            //设置请求允许输入 默认是true
-            urlConn.setDoInput(true);
-            // Post请求不能使用缓存
-            urlConn.setUseCaches(false);
-            // 设置为Post请求
-            urlConn.setRequestMethod("POST");
-            //设置本次连接是否自动处理重定向
-            urlConn.setInstanceFollowRedirects(true);
-            //配置请求Content-Type
-//            urlConn.setRequestProperty("Content-Type", "application/json");//post请求不能设置这个
-            // 开始连接
-            urlConn.connect();
-
-            // 发送请求参数
-            PrintWriter dos = new PrintWriter(urlConn.getOutputStream());
-            dos.write(params);
-            dos.flush();
-            dos.close();
-            // 判断请求是否成功
-            if (urlConn.getResponseCode() == 200) {
-                // 获取返回的数据
-                String result = streamToString(urlConn.getInputStream());
-                Log.e(TAG, "Post方式请求成功，result--->" + result);
-
-            } else {
-                Log.e(TAG, "Post方式请求失败");
-            }
-            // 关闭连接
-            urlConn.disconnect();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-
-
-
-
-
-
-
     private void requestGet(HashMap<String, String> paramsMap) {
         try {
-            String baseUrl = "http://172.17.189.143:8080/Test/servlet/LoginDateServlet?";
+            String baseUrl = "http://172.17.128.27:8080/Test/servlet/LoginDateServlet?";
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
             for (String key : paramsMap.keySet()) {
@@ -373,7 +271,5 @@ public class register extends AppCompatActivity {
             Log.e(TAG, e.toString());
         }
     }
-
-
 
 }

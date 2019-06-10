@@ -79,7 +79,7 @@ public class register extends AppCompatActivity {
 
     private void requestGet(HashMap<String, String> paramsMap) {
         try {
-            String baseUrl = "http://172.17.128.27:8080/Test/servlet/LoginDateServlet?";
+            String baseUrl = "http://172.29.72.42:8080/Test/servlet/LoginDateServlet?";
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
             for (String key : paramsMap.keySet()) {

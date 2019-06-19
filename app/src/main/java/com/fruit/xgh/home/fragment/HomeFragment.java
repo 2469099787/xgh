@@ -13,7 +13,7 @@ import com.fruit.xgh.Map.ActivityMap;
 import com.fruit.xgh.R;
 import com.fruit.xgh.base.BaseFragment;
 import com.fruit.xgh.home.adapter.HomeFragmentAdapter;
-import com.fruit.xgh.home.fragment.bean.ResultBeanData;
+import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

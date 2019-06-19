@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.fruit.xgh.R;
-import com.fruit.xgh.home.fragment.bean.ResultBeanData;
+import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.utils.Constants;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public class ChannelAdapter extends BaseAdapter {
         ResultBeanData.ResultBean.ChannelInfoBean channelInfoBean =
                 channel_info.get(position);
         holer.tvChannel.setText(channelInfoBean.getChannel_name());
-        Glide.with(mContext).load(Constants.BASE_IMAGE_URL+channelInfoBean.getImage()).into(holer.ivChannel);
+        Glide.with(mContext).load(Constants.BASE_URl_IMAGE+channelInfoBean.getImage()).into(holer.ivChannel);
         return convertView;
     }
 

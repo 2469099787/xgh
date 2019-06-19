@@ -145,7 +145,7 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
 
     private void setDataForView(GoodsBean goodsBean) {
         //设置图片
-        Glide.with(this).load(Constants.BASE_IMAGE_URL+goodsBean.getFigure()).into(ivGoodInfoImage);
+        Glide.with(this).load(Constants.BASE_URl_IMAGE+goodsBean.getFigure()).into(ivGoodInfoImage);
         //设置文本
         tvGoodInfoName.setText(goodsBean.getName());
         //设置价格

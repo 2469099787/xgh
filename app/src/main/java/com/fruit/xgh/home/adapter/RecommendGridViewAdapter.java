@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.fruit.xgh.R;
-import com.fruit.xgh.home.fragment.bean.ResultBeanData;
+import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.utils.Constants;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class RecommendGridViewAdapter extends BaseAdapter {
         }
         //根据位置得到对应的数据
         ResultBeanData.ResultBean.RecommendInfoBean recommendInfoBean = datas.get(position);
-        Glide.with(mContext).load(Constants.BASE_IMAGE_URL+recommendInfoBean.getFigure()).into(viewHolder.ivRecommend);
+        Glide.with(mContext).load(Constants.BASE_URl_IMAGE+recommendInfoBean.getFigure()).into(viewHolder.ivRecommend);
         viewHolder.tvName.setText(recommendInfoBean.getName());
         viewHolder.tvPrice.setText("￥" + recommendInfoBean.getCover_price());
         return convertView;

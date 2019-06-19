@@ -85,7 +85,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:text="预售截止10月15日，预售期为限量礼盒版，包括特制木盒x1、画集x1、邮票x1套、书签x1、贴纸x1、信封x1、礼盒特"
+                            android:text=""
                             android:textColor="#767f86" />
 
                         <TextView
@@ -119,7 +119,7 @@
                                 android:id="@+id/tv_good_info_store"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="尚硅谷"
+                                android:text="鲜果汇"
                                 android:textColor="#ff4040" />
 
                             <TextView
@@ -152,7 +152,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:text="提示：普通商品享有质量问题7天退货，签收后3个工作日内可换货。其他特殊商品（如手办）的售后以页面说明为准"
+                            android:text="提示：普通商品享有质量问题3天退货，其他特殊商品的售后以页面说明为准"
                             android:textColor="#3c3d40" />
 
                         <View

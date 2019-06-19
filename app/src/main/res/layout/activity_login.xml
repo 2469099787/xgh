@@ -55,7 +55,8 @@
                     android:inputType="textPassword" />
 
                 <Button
-                    android:onClick="loginPOST"
+                    android:onClick="onlogin"
+                    android:id="@+id/loginButton"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/button_brackground"
@@ -93,6 +94,7 @@
                         android:text="没有密码？" />
 
                     <TextView
+                        android:onClick="onRegister"
                         android:id="@+id/register"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

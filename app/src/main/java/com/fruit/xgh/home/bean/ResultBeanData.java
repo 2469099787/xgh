@@ -1,4 +1,4 @@
-package com.fruit.xgh.home.fragment.bean;
+package com.fruit.xgh.home.bean;
 
 import java.util.List;
 

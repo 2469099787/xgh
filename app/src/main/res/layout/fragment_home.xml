@@ -35,7 +35,7 @@
                 android:background="@drawable/dw"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
+
                 />
                 <TextView
                     android:id="@+id/text_position"
@@ -61,7 +61,7 @@
                 android:gravity="right"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
+
                 />
             </LinearLayout>
 

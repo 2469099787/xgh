@@ -24,14 +24,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.GoodsInfoActivity"></activity>
-        <activity android:name=".main.home" />
+        <activity android:name=".main.RegisterTest"></activity>
+        <activity android:name=".main.GoodsInfoActivity" />
+        <activity android:name=".main.WelcomeActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".main.Login" />
         <activity android:name=".main.register" />
         <activity android:name=".Map.ActivityMap" />
         <activity
-            android:name=".main.WelcomeActivity"
+            android:name=".main.home"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

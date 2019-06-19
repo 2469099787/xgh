@@ -1,292 +1,141 @@
 package com.fruit.xgh.main;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.fruit.xgh.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import android.os.Handler;
+import android.os.Message;
+
+import android.util.Log;
+
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.fruit.xgh.User;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-
 
 public class Login extends AppCompatActivity {
-    String TAG =Login.class.getCanonicalName();
-    private EditText et_data_uname;
-    private EditText et_data_upass;
-    private HashMap<String, String> stringHashMap;
-
-
-//    private EditText Phone;
-//    private EditText PassWrod;
-//    private Button  Lonin;
-    //private TextView Register;
+    private EditText XGH_phone;
+    private EditText XGH_pass;
+    private int MESSAGE_RESULT_ok =1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+   public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        et_data_uname= (EditText)findViewById(R.id.uname);
-        et_data_upass = (EditText)findViewById(R.id.upass);
-        stringHashMap = new HashMap<>();
-       TextView Register = (TextView) findViewById(R.id.register);
 
 
-       Register.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(Login.this,register.class);
-               startActivity(intent);
-           }
-       });
 
     }
 
-    public void loginPOST(View view) {
-        stringHashMap.put("username", et_data_uname.getText().toString());
-        stringHashMap.put("password", et_data_upass.getText().toString());
-        new Thread(postRun).start();
-        Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(Login.this,home.class);
-        startActivity(intent);
+
+    public void onlogin(View view) {
+        XGH_phone = (EditText) findViewById(R.id.uname);
+        XGH_pass = (EditText) findViewById(R.id.upass);
+        if(XGH_phone.getText().length() >= 11){
+            final String username=XGH_phone.getText().toString();
+            if(XGH_pass.getText().length() >= 6){
+                final String pass_text=XGH_pass.getText().toString();
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        httppost(username,pass_text);
+                    }
+                }.start();
+
+            }else if (XGH_pass.getText().toString().equals("")){
+                Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
+            }else if (XGH_pass.getText().length() < 6){
+                Toast.makeText(this,"请确认密码是否大于六位字符",Toast.LENGTH_SHORT).show();
+            }
+        }else if (XGH_phone.getText().toString().equals("")){
+            Toast.makeText(this,"账号不能为空",Toast.LENGTH_SHORT).show();
+        }else if (XGH_phone.getText().length() < 11){
+            Toast.makeText(this,"请确认账号是否为11位数",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
 
 
 
-    Runnable postRun = new Runnable() {
+    private void httppost(String username,String password){
+        String urlStr="http://114.115.255.87/xghServer/api/AppUser_login.action";
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection post = (HttpURLConnection) url.openConnection();
+            post.setReadTimeout(500);
+            post.setConnectTimeout(500);
+            //设置post请求
+            post.setRequestMethod("POST");
+            String key="userPhone="+username+"&userPassword="+password;
+            PrintWriter writer = new PrintWriter(post.getOutputStream());
+            writer.write(key);
+            writer.flush();
+            writer.close();
+            if(post.getResponseCode()==200){
+                BufferedReader reader = new BufferedReader(new InputStreamReader(post.getInputStream()));
+                String readertext="";
+                String result="";
+                while((readertext=reader.readLine())!=null){
+                    result+=readertext;
+                }
+                Log.e("httpPost",""+result);
+                Message message = new Message();
+                message.what =MESSAGE_RESULT_ok;
+                message.obj=result;
+                handler.sendMessage(message);
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Handler handler = new Handler(){
         @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            requestPost(stringHashMap);
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    String  str = (String)msg.obj;
+                    Gson gson =new Gson();
+                    Log.d("gson",str);
+                    User bean = gson.fromJson(str, User.class);
+                    //Log.d("gson","qqqqqqqqq"+bean.getMESSAGE());
+                    if(bean.getMESSAGE().equals("success")){
+                       // Log.d("gson","qqqqqqqqqqqq");
+                        Toast.makeText(Login.this,"登陆成功",Toast.LENGTH_LONG).show();
+                        //Log.d("Msg success",bean.getPhone());
+                        System.out.println("succse");
+                        Intent intent = new Intent(Login.this,home.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(Login.this, "账号或密码错误请重试", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+            }
         }
     };
 
-
-
-
-
-    private void requestPost(HashMap<String, String> paramsMap) {
-        try {
-            String baseUrl = "http://172.17.128.27:8080/Test/servlet/LoginDateServlet";
-            //合成参数
-            StringBuilder tempParams = new StringBuilder();
-            int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos >0) {
-                    tempParams.append("&");
-                }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
-                pos++;
-            }
-            String params = tempParams.toString();
-            Log.e(TAG,"params--post-->>"+params);
-            // 请求的参数转换为byte数组
-//            byte[] postData = params.getBytes();
-            // 新建一个URL对象
-            URL url = new URL(baseUrl);
-            // 打开一个HttpURLConnection连接
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            // 设置连接超时时间
-            urlConn.setConnectTimeout(5 * 1000);
-            //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
-            // Post请求必须设置允许输出 默认false
-            urlConn.setDoOutput(true);
-            //设置请求允许输入 默认是true
-            urlConn.setDoInput(true);
-            // Post请求不能使用缓存
-            urlConn.setUseCaches(false);
-            // 设置为Post请求
-            urlConn.setRequestMethod("POST");
-            //设置本次连接是否自动处理重定向
-            urlConn.setInstanceFollowRedirects(true);
-            //配置请求Content-Type
-//            urlConn.setRequestProperty("Content-Type", "application/json");//post请求不能设置这个
-            // 开始连接
-            urlConn.connect();
-
-            // 发送请求参数
-            PrintWriter dos = new PrintWriter(urlConn.getOutputStream());
-            dos.write(params);
-            dos.flush();
-            dos.close();
-            // 判断请求是否成功
-            if (urlConn.getResponseCode() == 200) {
-                // 获取返回的数据
-                String result = streamToString(urlConn.getInputStream());
-                Log.e(TAG, "Post方式请求成功，result--->" + result);
-
-            } else {
-                Log.e(TAG, "Post方式请求失败");
-            }
-            // 关闭连接
-            urlConn.disconnect();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
+    public void onRegister(View view) {
+        Intent toRegisterActivity =new Intent(this,register.class);
+        startActivity(toRegisterActivity);
     }
-
-
-    public String streamToString(InputStream is) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
-            int len = 0;
-            while ((len = is.read(buffer)) != -1) {
-                baos.write(buffer, 0, len);
-            }
-            baos.close();
-            is.close();
-            byte[] byteArray = baos.toByteArray();
-            return new String(byteArray);
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-            return null;
-        }
-    }
-
-    private void downloadFile(String fileUrl) {
-        try {
-            // 新建一个URL对象
-            URL url = new URL(fileUrl);
-            // 打开一个HttpURLConnection连接
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            // 设置连接主机超时时间
-            urlConn.setConnectTimeout(5 * 1000);
-            //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
-            // 设置是否使用缓存  默认是true
-            urlConn.setUseCaches(true);
-            // 设置为Post请求
-            urlConn.setRequestMethod("GET");
-            //urlConn设置请求头信息
-            //设置请求中的媒体类型信息。
-            urlConn.setRequestProperty("Content-Type", "application/json");
-            //设置客户端与服务连接类型
-            urlConn.addRequestProperty("Connection", "Keep-Alive");
-            // 开始连接
-            urlConn.connect();
-            // 判断请求是否成功
-            if (urlConn.getResponseCode() == 200) {
-                String filePath = "";//下载文件保存在本地的地址
-                File descFile = new File(filePath);
-                FileOutputStream fos = new FileOutputStream(descFile);
-                ;
-                byte[] buffer = new byte[1024];
-                int len;
-                InputStream inputStream = urlConn.getInputStream();
-                while ((len = inputStream.read(buffer)) != -1) {
-                    // 写到本地
-                    fos.write(buffer, 0, len);
-                }
-            } else {
-                Log.e(TAG, "文件下载失败");
-            }
-            // 关闭连接
-            urlConn.disconnect();
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-
-    /**
-     * 文件上传
-     *
-     * @param filePath
-     * @param paramsMap
-     */
-    private void upLoadFile(String filePath, HashMap<String, String> paramsMap) {
-        try {
-            String baseUrl = "https://xxx.com/uploadFile";
-            File file = new File(filePath);
-            //新建url对象
-            URL url = new URL(baseUrl);
-            //通过HttpURLConnection对象,向网络地址发送请求
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            //设置该连接允许读取
-            urlConn.setDoOutput(true);
-            //设置该连接允许写入
-            urlConn.setDoInput(true);
-            //设置不能适用缓存
-            urlConn.setUseCaches(false);
-            //设置连接超时时间
-            urlConn.setConnectTimeout(5 * 1000);   //设置连接超时时间
-            //设置读取超时时间
-            urlConn.setReadTimeout(5 * 1000);   //读取超时
-            //设置连接方法post
-            urlConn.setRequestMethod("POST");
-            //设置维持长连接
-            urlConn.setRequestProperty("connection", "Keep-Alive");
-            //设置文件字符集
-            urlConn.setRequestProperty("Accept-Charset", "UTF-8");
-            //设置文件类型
-            urlConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + "*****");
-            String name = file.getName();
-            DataOutputStream requestStream = new DataOutputStream(urlConn.getOutputStream());
-            requestStream.writeBytes("--" + "*****" + "\r\n");
-            //发送文件参数信息
-            StringBuilder tempParams = new StringBuilder();
-            tempParams.append("Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + name + "\"; ");
-            int pos = 0;
-            int size = paramsMap.size();
-            for (String key : paramsMap.keySet()) {
-                tempParams.append(String.format("%s=\"%s\"", key, paramsMap.get(key), "utf-8"));
-                if (pos < size - 1) {
-                    tempParams.append("; ");
-                }
-                pos++;
-            }
-            tempParams.append("\r\n");
-            tempParams.append("Content-Type: application/octet-stream\r\n");
-            tempParams.append("\r\n");
-            String params = tempParams.toString();
-            requestStream.writeBytes(params);
-            //发送文件数据
-            FileInputStream fileInput = new FileInputStream(file);
-            int bytesRead;
-            byte[] buffer = new byte[1024];
-            DataInputStream in = new DataInputStream(new FileInputStream(file));
-            while ((bytesRead = in.read(buffer)) != -1) {
-                requestStream.write(buffer, 0, bytesRead);
-            }
-            requestStream.writeBytes("\r\n");
-            requestStream.flush();
-            requestStream.writeBytes("--" + "*****" + "--" + "\r\n");
-            requestStream.flush();
-            fileInput.close();
-            int statusCode = urlConn.getResponseCode();
-            if (statusCode == 200) {
-                // 获取返回的数据
-                String result = streamToString(urlConn.getInputStream());
-                Log.e(TAG, "上传成功，result--->" + result);
-            } else {
-                Log.e(TAG, "上传失败");
-            }
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-        }
-    }
-
-
-
-
 }

@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fruit.xgh.R;
 import com.fruit.xgh.home.bean.GoodsBean;
-import com.fruit.xgh.home.fragment.bean.ResultBeanData;
+import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.main.GoodsInfoActivity;
 import com.fruit.xgh.utils.Constants;
 import com.youth.banner.Banner;
@@ -172,15 +172,28 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
             gv_recommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(mContext, "position=="+position, Toast.LENGTH_SHORT).show();
-                    ResultBeanData.ResultBean.RecommendInfoBean recommendInfoBean=recommend_info.get(position);
-                    GoodsBean goodsBean = new GoodsBean();
-                    goodsBean.setCover_price(recommendInfoBean.getCover_price());
-                    goodsBean.setFigure(recommendInfoBean.getFigure());
-                    goodsBean.setName(recommendInfoBean.getName());
-                    goodsBean.setProduct_id(recommendInfoBean.getProduct_id());
+                    String cover_price = recommend_info.get(position).getCover_price();
+                    String name = recommend_info.get(position).getName();
+                    String figure = recommend_info.get(position).getFigure();
+                    String product_id = recommend_info.get(position).getProduct_id();
+                    GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id);
+                    Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                    intent.putExtra(GOODS_BEAN, goodsBean);
+                    mContext.startActivity(intent);
 
-                    startGoodsInfoActivity(goodsBean);
+
+
+
+
+//                    Toast.makeText(mContext, "position=="+position, Toast.LENGTH_SHORT).show();
+//                    ResultBeanData.ResultBean.RecommendInfoBean recommendInfoBean=recommend_info.get(position);
+//                    GoodsBean goodsBean = new GoodsBean();
+//                    goodsBean.setCover_price(recommendInfoBean.getCover_price());
+//                    goodsBean.setFigure(recommendInfoBean.getFigure());
+//                    goodsBean.setName(recommendInfoBean.getName());
+//                    goodsBean.setProduct_id(recommendInfoBean.getProduct_id());
+//
+//                    startGoodsInfoActivity(goodsBean);
                 }
             });
 
@@ -223,7 +236,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 public Object instantiateItem( ViewGroup container, int position) {
                     ImageView imageView = new ImageView(mContext);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    Glide.with(mContext).load(Constants.BASE_IMAGE_URL+act_info.get(position).getIcon_url()).into(imageView);
+                    Glide.with(mContext).load(Constants.BASE_URl_IMAGE+act_info.get(position).getIcon_url()).into(imageView);
                     //添加到容器中
                     container.addView(imageView);
 
@@ -311,7 +324,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 @Override
                 public void OnLoadImage(ImageView view, Object url) {
                     //联网请求图片- Glide
-                    Glide.with(mContext).load(Constants.BASE_IMAGE_URL+url).into(view);
+                    Glide.with(mContext).load(Constants.BASE_URl_IMAGE+url).into(view);
 
                 }
             });

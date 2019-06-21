@@ -1,0 +1,48 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+
+    tools:context=".type.fragment.TypeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:background="#f8d057">
+        <TextView
+            android:id="@+id/iv_type_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/search_breakground"
+            android:hint="泰国芒青"
+            android:gravity="center"
+            />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#e4e4e4" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_type"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

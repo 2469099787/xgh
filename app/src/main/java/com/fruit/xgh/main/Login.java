@@ -2,6 +2,7 @@ package com.fruit.xgh.main;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -94,6 +95,16 @@ public class Login extends AppCompatActivity {
                     result+=readertext;
                 }
                 Log.e("httpPost",""+result);
+
+                SharedPreferences sf = getSharedPreferences("user",0);
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putString("user",result);
+                editor.commit();
+
+
+                SharedPreferences sf1 = getSharedPreferences("user",0);
+                String user =  sf1.getString("user",null);
+
                 Message message = new Message();
                 message.what =MESSAGE_RESULT_ok;
                 message.obj=result;
@@ -131,6 +142,7 @@ public class Login extends AppCompatActivity {
                     break;
 
             }
+
         }
     };
 

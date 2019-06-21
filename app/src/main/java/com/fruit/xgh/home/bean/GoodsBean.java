@@ -23,7 +23,7 @@ public class GoodsBean implements Serializable {
      */
     private boolean isChildSelected;
 
-    public GoodsBean(String name, String cover_price) {
+    public GoodsBean(String s, int coverPrice, String name, String cover_price) {
     }
 
     public GoodsBean(String name, String cover_price, String figure, String product_id) {

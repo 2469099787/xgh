@@ -4,28 +4,39 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="1dp">
 
     <ImageView
         android:id="@+id/iv_recommend"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/new_img_loading_2" />
+        android:background="@drawable/new_img_loading_2"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:lines="2"
-        android:text="全款预售【喵鹿酱】樱桃蜜语 毛呢绣花 小高腰半裙"
-        android:textColor="#000" />
-
+        android:text="@string/word"
+        android:textColor="#484a4d"
+        android:gravity="center"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/num"
+        android:textSize="15sp"
+        android:textColor="#858686"
+        />
     <TextView
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="￥88.00"
-        android:textColor="#ff4242" />
+        android:textColor="#cd273a"
+        android:textSize="20sp"/>
 </LinearLayout>

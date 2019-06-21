@@ -37,6 +37,6 @@
     <GridView
         android:id="@+id/gv_recommend"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="1500dp"
         android:numColumns="3"></GridView>
 </LinearLayout>

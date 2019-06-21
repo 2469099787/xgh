@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">鲜果汇</string>
     <string name="home">首页</string>
+    <string name="test">测试</string>
+    <string name="num">个/份</string>
+    <string name="word">全款预售【喵鹿酱】</string>
+    <string name="price">￥88.00</string>
+    <string name="right_text">古风</string>
 </resources>

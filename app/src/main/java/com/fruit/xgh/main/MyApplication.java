@@ -12,9 +12,11 @@ import okhttp3.OkHttpClient;
 
 //整个软件
 public class MyApplication  extends Application {
+    private static MyApplication myApplication;
     @Override
     public void onCreate() {
         super.onCreate();
+        myApplication =this;
         //初始化okhttpUtils
         initOkhttpCliation();
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
@@ -33,5 +35,10 @@ public class MyApplication  extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+    }
+
+
+    public static MyApplication getConext(){
+        return myApplication;
     }
 }

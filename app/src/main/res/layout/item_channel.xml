@@ -21,4 +21,5 @@
         android:text="硅谷视频"
         android:textColor="#9d9d9d"
         android:textSize="12sp" />
+
 </LinearLayout>

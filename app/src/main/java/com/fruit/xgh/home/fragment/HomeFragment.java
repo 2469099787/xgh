@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.fruit.xgh.Fruit;
 import com.fruit.xgh.Map.ActivityMap;
 import com.fruit.xgh.R;
 import com.fruit.xgh.base.BaseFragment;
@@ -17,6 +18,8 @@ import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.List;
 
 import okhttp3.Call;
 
@@ -29,7 +32,9 @@ public class HomeFragment extends BaseFragment{
     private TextView photo_position;
     /**
      * 返回的数据
+     *
      */
+    private List<Fruit.REQUESTBean> fruit;
     private ResultBeanData.ResultBean resultBean;
     private HomeFragmentAdapter adapter;
     @Override
@@ -56,7 +61,7 @@ public class HomeFragment extends BaseFragment{
     }
 
     private void getDataFromNet() {
-        String url = Constants.HOME_URL;
+        String url = Constants.XGH;
         OkHttpUtils
                 .get()
                 .url(url)
@@ -87,18 +92,16 @@ public class HomeFragment extends BaseFragment{
                         //解析数据
                         processData(response);
                     }
-
-
                 });
     }
 
     private void processData(String json) {
-        ResultBeanData resultBeanData = JSON.parseObject(json,ResultBeanData.class);
-         resultBean =resultBeanData.getResult();
-         if (resultBean != null){
+        Fruit fruits = JSON.parseObject(json, Fruit.class);
+        fruit =fruits.getREQUEST();
+         if (fruit != null){
              //有数据
             //设置适配器
-             adapter = new HomeFragmentAdapter(mContext,resultBean);
+             adapter = new HomeFragmentAdapter(mContext,fruit);
              rvHome.setAdapter(adapter);
 
              //设置布局管理者
@@ -106,23 +109,12 @@ public class HomeFragment extends BaseFragment{
          }else {
              //没有数据
          }
-         Log.e(TAG,"测试=>获取热门数据名字=="+resultBean.getHot_info().get(0).getName());
+         //Log.e(TAG,"测试=>获取热门数据名字=="+resultBean.getHot_info().get(0).getName());
         
     }
 
     private void initListener() {
 
-        //置顶的监听
-
-//        ib_top.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                //回到顶部
-//
-//                rvHome.scrollToPosition(0);
-//            }
-//        });
 
         //搜素的监听
 

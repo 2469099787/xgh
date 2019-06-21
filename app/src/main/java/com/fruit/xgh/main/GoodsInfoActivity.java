@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.fruit.xgh.Fruit;
 import com.fruit.xgh.R;
 import com.fruit.xgh.home.bean.GoodsBean;
 import com.fruit.xgh.utils.Constants;
@@ -38,6 +39,7 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
     private TextView tvMoreSearch;
     private TextView tvMoreHome;
     private GoodsBean goodsBean;
+    private Fruit.REQUESTBean requestBean;
 
     /**
      * Find the Views in the layout<br />
@@ -145,11 +147,11 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
 
     private void setDataForView(GoodsBean goodsBean) {
         //设置图片
-        Glide.with(this).load(Constants.BASE_URl_IMAGE+goodsBean.getFigure()).into(ivGoodInfoImage);
+        Glide.with(this).load(Constants.HTTP +requestBean.getPicture()+".jpg").into(ivGoodInfoImage);
         //设置文本
-        tvGoodInfoName.setText(goodsBean.getName());
+        tvGoodInfoName.setText(requestBean.getName());
         //设置价格
-        tvGoodInfoPrice.setText("￥" + goodsBean.getCover_price());
+        tvGoodInfoPrice.setText("￥" + requestBean.getPrice());
     }
 
     @Override

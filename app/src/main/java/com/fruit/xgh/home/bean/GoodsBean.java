@@ -9,9 +9,10 @@ import java.io.Serializable;
 public class GoodsBean implements Serializable {
 
     private String name;
-    private String cover_price;
+    private int cover_price;
     private String figure;
     private String product_id;
+    private String remind;
     private int number = 1;
 
     /**
@@ -23,14 +24,13 @@ public class GoodsBean implements Serializable {
      */
     private boolean isChildSelected;
 
-    public GoodsBean(String s, int coverPrice, String name, String cover_price) {
-    }
 
-    public GoodsBean(String name, String cover_price, String figure, String product_id) {
+    public GoodsBean(String name, int cover_price, String figure, String product_id ,String remind) {
         this.name = name;
         this.cover_price = cover_price;
         this.figure = figure;
         this.product_id = product_id;
+        this.remind = remind;
     }
 
     public String getName() {
@@ -41,12 +41,12 @@ public class GoodsBean implements Serializable {
         this.name = name;
     }
 
-    public String getCover_price() {
-        cover_price.substring(0, cover_price.length() - 1);
+    public int getCover_price() {
+
         return cover_price;
     }
 
-    public void setCover_price(String cover_price) {
+    public void setCover_price(int cover_price) {
         this.cover_price = cover_price;
     }
 
@@ -88,6 +88,14 @@ public class GoodsBean implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getRemind(){
+        return remind;
+    }
+
+    public void setRemind(String remind){
+        this.remind = remind;
     }
 
     @Override

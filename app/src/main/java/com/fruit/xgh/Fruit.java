@@ -1,5 +1,6 @@
 package com.fruit.xgh;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Fruit {
@@ -28,7 +29,7 @@ public class Fruit {
         this.REQUEST = REQUEST;
     }
 
-    public static class REQUESTBean {
+    public static class REQUESTBean implements Serializable {
         /**
          * classify : {"id":1,"name":"今日推荐","status":1}
          * discountPrice : 6.5
@@ -334,5 +335,30 @@ public class Fruit {
                 this.pictureC = pictureC;
             }
         }
+
+        @Override
+        public String toString() {
+            return "REQUESTBean{" +
+                    "classify=" + classify +
+                    ", discountPrice=" + discountPrice +
+                    ", fruitDetail=" + fruitDetail +
+                    ", grade='" + grade + '\'' +
+                    ", id=" + id +
+                    ", intro='" + intro + '\'' +
+                    ", name='" + name + '\'' +
+                    ", picture='" + picture + '\'' +
+                    ", price=" + price +
+                    ", producingArea='" + producingArea + '\'' +
+                    ", remind='" + remind + '\'' +
+                    ", repertoty=" + repertoty +
+                    ", salesVolume=" + salesVolume +
+                    ", specificaion='" + specificaion + '\'' +
+                    ", srorageCondition='" + srorageCondition + '\'' +
+                    ", status=" + status +
+                    ", evaluates=" + evaluates +
+                    '}';
+        }
     }
+
 }
+

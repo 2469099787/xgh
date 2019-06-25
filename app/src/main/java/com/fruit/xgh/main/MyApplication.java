@@ -6,6 +6,8 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import org.xutils.x;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -16,6 +18,8 @@ public class MyApplication  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        x.Ext.init(this);
+        x.Ext.setDebug(false);
         myApplication =this;
         //初始化okhttpUtils
         initOkhttpCliation();

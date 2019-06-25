@@ -8,6 +8,9 @@ public class Constants {
     public static String XGH = "http://114.115.255.87/xghServer/api/AppFruit_findAllFruit.action";
     public static String HTTP = "http://114.115.255.87/xghServer/";
     public static String GOOD_EAT = HTTP + "api/AppFruit_getAllClassify.action";
+    public static String HOT = HTTP + "p/hot1.jpg";
+    public static String HOT1 = HTTP + "p/hot2.jpg";
+    public static String XG = HTTP + "json/BANNER.json";
 //    public static String BASE_URL = "http://172.17.168.234:8080/atguigu";
 //    //public static final String BASE_URl_IMAGE = BASE+"/atguigu/img";
 //    /**
@@ -22,7 +25,7 @@ public class Constants {
 
    // public static final String BASE = "http://192.168.51.104:8080";
     //系统默认的模拟器就用这个ip
-    public static final String BASE = "http://172.17.172.131:8080";
+    public static final String BASE = "http://192.168.1.144:8080";
     //使用第三方模拟器--当前电脑的ip地址
 //    public static final String BASE = "http://192.168.51.104:8080";
     //运行到自己的真实手机上：
@@ -38,6 +41,14 @@ public class Constants {
     // 请求图片基本URL
     public static final String BASE_URl_IMAGE = BASE+"/atguigu/img";
 
+
+    public static final String HOME = "http://114.115.255.87/xghServer";
+    public static final String JSON = HOME +"/json/";
+    public static final String IMAGE = HOME +"/p";
+    public static final String URL = JSON + "CHANNEL.json";
+
+
+    public static final String TEST = BASE_URL_JSON +"BANNER.json";
 
     //小裙子
     public static final String SKIRT_URL = BASE_URL_JSON + "SKIRT_URL.json";

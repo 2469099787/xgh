@@ -4,7 +4,6 @@ package com.fruit.xgh.type.fragment;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +17,6 @@ import com.fruit.xgh.R;
 import com.fruit.xgh.base.BaseFragment;
 import com.fruit.xgh.type.adapter.ItemOrdinaryRightAdapter;
 import com.fruit.xgh.type.adapter.TypeLeftAdapter;
-import com.fruit.xgh.type.adapter.TypeRightAdapter;
 import com.fruit.xgh.type.bean.TypeBean;
 import com.fruit.xgh.utils.Constants;
 import com.google.gson.Gson;
@@ -30,7 +28,6 @@ import java.util.List;
 import okhttp3.Call;
 import okhttp3.Request;
 
-import static com.fruit.xgh.utils.Constants.XGH;
 
 /**
  * 分类页面
@@ -43,11 +40,10 @@ public class ListFragment extends BaseFragment {
     private GridView rv_right;
     private List<TypeBean.ResultBean> result;
     private List<Fruit.REQUESTBean> list_fruit;
-    private List<Fruit.REQUESTBean> list_fruit2;
 
     private Context context;
 
-    private String[] urls = new String[]{Constants.XGH, Constants.GOOD_EAT, Constants.XGH, Constants.XGH,
+    private String[] urls = new String[]{Constants.HTTP+"api/AppFruit_findFruitByNew.action", Constants.GOOD_EAT, Constants.XG, Constants.XGH,
             Constants.XGH, Constants.XGH};
     private String url = Constants.XGH;
 
@@ -183,9 +179,9 @@ public class ListFragment extends BaseFragment {
         Fruit typeBean = gson.fromJson(json, Fruit.class);
         list_fruit = typeBean.getREQUEST();
 
-        for(int i=0;i<list_fruit.size();i++){
-           list_fruit.get(i).getClassify().getId();
-
-        }
+//        for(int i=0;i<list_fruit.size();i++){
+//           list_fruit.get(i).getClassify().getId();
+//
+//        }
     }
 }

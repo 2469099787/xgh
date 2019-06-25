@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".main.MyApplication"
         android:allowBackup="true"
@@ -24,9 +25,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.fragment.GoodEat"></activity>
-        <activity android:name=".main.RegisterTest" />
-        <activity android:name=".main.GoodsInfoActivity" />
+        <activity android:name=".main.GoodsInfoActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".main.WelcomeActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".main.Login" />
@@ -35,11 +40,7 @@
         <activity
             android:name=".main.home"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

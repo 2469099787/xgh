@@ -11,21 +11,26 @@
         android:orientation="vertical"
         >
         <ImageView
+            android:id="@+id/image"
             android:layout_width="208dp"
             android:layout_height="208dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/holo_red_dark"
+            />
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="福建椰子"
+            android:text="@string/good_eat_all_name"
             android:textSize="24sp"
             />
         <TextView
+            android:id="@+id/fen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="/份"
+            android:text="@string/good_eat_all_fen"
             android:textSize="18sp"/>
     </LinearLayout>
 

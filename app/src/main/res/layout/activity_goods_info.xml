@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="商品详情"
+            android:text="产品详情"
             android:textColor="#564c4c"
             android:textSize="20sp" />
 
@@ -71,62 +72,180 @@
                             android:layout_width="match_parent"
                             android:layout_height="350dp"
                             android:layout_gravity="center_horizontal" />
-
-                        <TextView
-                            android:id="@+id/tv_good_info_name"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:text="【预售】《来年就交给你啦》珍藏画册 限量礼盒版"
-                            android:textColor="#323427" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/good_dengji"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:textSize="24sp"
+                                android:text="A级---"
+                                android:layout_marginLeft="15dp"/>
+                            <TextView
+                                android:id="@+id/tv_good_info_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="国产蓝莓"
+                                android:textColor="#000000"
+                                android:textSize="24sp"
+                                />
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/tv_good_info_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text=""
-                            android:textColor="#767f86" />
-
+                            android:text="说明"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="#999999"
+                            android:textSize="18sp"/>
                         <TextView
-                            android:id="@+id/tv_good_info_price"
+                            android:id="@+id/good_guige_qian"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="500g*1"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="#999999"
+                            android:textSize="18sp"
+                            />
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text="￥150.00"
-                            android:textColor="#ed3f3f"
-                            android:textSize="20sp" />
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/tv_good_info_price"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="￥15.00"
+                                android:layout_marginLeft="7dp"
+                                android:textColor="#cd273a"
+                                android:textSize="30sp" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="bottom"
+                                android:gravity="right"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="原价："
+                                    android:textSize="18sp"
+                                    android:textColor="#999999"
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#eeee" />
+                                    />
+                                <TextView
+                                    android:id="@+id/good_yuanjia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="¥ 48.50"
+                                    android:textSize="18sp"
+                                    android:textColor="#999999"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="bottom"
+                                android:gravity="right"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="已售："
+                                    android:textSize="18sp"
+                                    android:textColor="#999999"
+                                    />
+                                <TextView
+                                    android:id="@+id/good_xiaoliang"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="189份"
+                                    android:textSize="18sp"
+                                    android:textColor="#999999"
+                                    android:layout_marginRight="10dp"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                           >
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_marginLeft="18dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@drawable/duigou"
+                                    />
+                                <TextView
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="三无退货"
+                                    android:textSize="18sp"
+                                    android:textColor="#9b9796"
+                                    android:layout_gravity="left"
+                                    />
+                            </LinearLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="由"
-                                android:textColor="#3c3d40" />
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@drawable/duigou"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_good_info_store"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="特约供货基地"
+                                    android:textSize="18sp"
+                                    android:textColor="#9b9796"
+                                    android:layout_gravity="left"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_marginLeft="18dp"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@drawable/duigou"
+                                    />
+                                <TextView
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="品控质检"
+                                    android:textSize="18sp"
+                                    android:textColor="#9b9796"
+                                    android:layout_gravity="left"
+                                    />
+                            </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tv_good_info_store"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="鲜果汇"
-                                android:textColor="#ff4040" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="发货"
-                                android:textColor="#3c3d40" />
                         </LinearLayout>
 
                         <View
@@ -134,26 +253,87 @@
                             android:layout_height="8dp"
                             android:background="#eeee" />
 
-                        <TextView
-                            android:id="@+id/tv_good_info_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableRight="@drawable/home_arrow_right"
-                            android:padding="10dp"
-                            android:text="请选择款式"
-                            android:textColor="#3c3d40" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="8dp"
                             android:background="#eeee" />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text="提示：普通商品享有质量问题3天退货，其他特殊商品的售后以页面说明为准"
-                            android:textColor="#3c3d40" />
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                >
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="规格"
+                                    android:layout_marginLeft="17dp"
+                                    android:textSize="18sp"
+                                    android:textColor="#999999" />
+                                <TextView
+                                    android:id="@+id/guige"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:textColor="#000000"
+                                    android:text="500g*1"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                >
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="级别"
+                                    android:layout_marginLeft="17dp"
+                                    android:textSize="18sp"
+                                    android:textColor="#999999" />
+                                <TextView
+                                    android:id="@+id/good_jipei"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:textColor="#000000"
+                                    android:text="A级"
+                                    />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                >
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="储存方式"
+                                    android:layout_marginLeft="17dp"
+                                    android:textSize="18sp"
+                                    android:textColor="#999999" />
+                                <TextView
+                                    android:id="@+id/chucun"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    android:textColor="#000000"
+                                    android:text="常温"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
 
                         <View
                             android:layout_width="match_parent"
@@ -198,52 +378,79 @@
             android:layout_gravity="bottom"
             android:background="#fff">
 
-            <TextView
-                android:id="@+id/tv_good_info_callcenter"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/icon_callserver_unpressed"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="联系客服"
-                android:textColor="#393b3e" />
+                android:layout_height="40dp"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/tv_good_info_callcenter"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/chegouwu"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购物车"
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_good_info_collection"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/good_uncollected"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="收藏"
-                android:textColor="#393b3e" />
+                android:layout_height="40dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_good_info_collection"
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/fenxing"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分享"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            </LinearLayout>
+
 
 
             <TextView
                 android:id="@+id/tv_good_info_cart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/icon_good_detail_cart"
-                android:gravity="center"
-                android:padding="2dp"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:text="购物车"
-                android:textColor="#393b3e" />
+                android:gravity="center"
+                android:textSize="15dp"
+                android:background="@drawable/jiarugouwuche"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/btn_good_info_addcart"
                 android:layout_width="120dp"
-                android:layout_height="51dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/add_cart_bg_selector"
                 android:gravity="center"
-                android:text="加入购物车"
-                android:textColor="#fff" />
+                android:text="立即购买"
+                android:textSize="15sp"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
         <include layout="@layout/more_layout" />

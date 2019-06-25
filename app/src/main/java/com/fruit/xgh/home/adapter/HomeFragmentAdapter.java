@@ -1,8 +1,11 @@
 package com.fruit.xgh.home.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +22,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fruit.xgh.Fruit;
 import com.fruit.xgh.R;
+import com.fruit.xgh.home.bean.ChannelBean;
 import com.fruit.xgh.home.bean.GoodsBean;
 import com.fruit.xgh.home.bean.ResultBeanData;
+import com.fruit.xgh.home.fragment.GoodEatFragment;
 import com.fruit.xgh.main.GoodsInfoActivity;
 import com.fruit.xgh.main.MyApplication;
 import com.fruit.xgh.utils.Constants;
@@ -36,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
+import static com.baidu.location.d.b.i;
 
 public class HomeFragmentAdapter extends RecyclerView.Adapter {
     /**
@@ -73,6 +79,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
     //数据
     private ResultBeanData.ResultBean resultBean;
     private List<Fruit.REQUESTBean> fruitBean;
+    private ChannelBean.ResultBean channelBean;
 
     public HomeFragmentAdapter(Context mContext, List<Fruit.REQUESTBean> fruitBean) {
         this.mContext = mContext;
@@ -115,15 +122,15 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == BANNER){
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
             //设置banner的数据
-            //bannerViewHolder.setData(resultBean.getBanner_info());
+            bannerViewHolder.setData(fruitBean);
         }
         else if(getItemViewType(position) == CHANNEL){
             ChannelViewHolder channelViewHolder = (ChannelViewHolder) holder;
-            //channelViewHolder.setData(resultBean.getChannel_info());
+            //channelViewHolder.setData(fruitBean);
         }
         else if (getItemViewType(position) == ACT){
             ActViewHolder actViewHolder = (ActViewHolder) holder;
-           // actViewHolder.setData(resultBean.getAct_info());
+            actViewHolder.setData(fruitBean);
         }
         else if (getItemViewType(position) == RECOMMEND){
             RecommendViewHolder recommendViewHolder = (RecommendViewHolder) holder;
@@ -140,6 +147,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         //private View itemView;
         private Context mContext;
         private Banner banner;
+        private ArrayList<String> list_path;
         public BannerViewHolder(View itemView, Context mContext) {
             super(itemView);
             this.mContext = mContext;
@@ -149,13 +157,27 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
 
 
         //设置banner数据
-        public void setData(List<ResultBeanData.ResultBean.BannerInfoBean> banner_info) {
+        public void setData(List<Fruit.REQUESTBean> fruitBean) {
             //得到图片集合地址
+
+//            list_path = new ArrayList<>();
+//            list_path.add(Constants.BANNER);
+//            list_path.add(Constants.BANNER1);
+
+//                 String[] imagesUrl = new String[]{
+//                     Constants.BANNER,
+//                         Constants.BANNER1,
+//                         Constants.BANNER2
+//
+//        };
             List<String> imagesUrl = new ArrayList<>();
-            for (int i=0;i<banner_info.size();i++){
-                String iamgeUrl = banner_info.get(i).getImage();
-                imagesUrl.add(iamgeUrl);
+            for (int i=1;i<4;i++){
+                //String iamgeUrl = Constants.BANNER;
+                //Log.d("图片请求地址：" ,iamgeUrl);
+                imagesUrl.add(fruitBean.get(i).getFruitDetail().getPicture1()+".jpg");
+                //imagesUrl.add(resultBean.get(i).getImage());
             }
+            banner.setDelayTime(5000);
             /**
              * 设置banner循环指示
              */
@@ -164,12 +186,16 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
              * 设置手风琴效果
              */
             banner.setBannerAnimation(Transformer.Accordion);
+//            banner.setImages(imagesUrl);
             banner.setImages(imagesUrl, new OnLoadImageListener() {
                 @Override
                 public void OnLoadImage(ImageView view, Object url) {
-                    //联网请求图片- Glide
-                    Glide.with(mContext).load(Constants.BASE_URl_IMAGE+url).into(view);
-
+                    /**
+                     * 这里你可以根据框架灵活设置
+                     */
+                    Glide.with(mContext)
+                            .load(Constants.HTTP + url)
+                            .into(view);
                 }
             });
             /**
@@ -204,12 +230,16 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Log.e(TAG,"mmm");
                     Toast.makeText(mContext, "推荐", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(mContext, GoodEatFragment.class);
+                    mContext.startActivity(intent);
+
                 }
             });
         }
 
-        public void setData(final List<ResultBeanData.ResultBean.ChannelInfoBean> channel_info) {
-            gvChannel.setAdapter(new ChannelAdapter(mContext, channel_info));
+        public void setData(final List<Fruit.REQUESTBean> fruitBean) {
+            gvChannel.setAdapter(new ItemChannelAdapter(mContext, fruitBean));
 
             //点击事件
             gvChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -218,8 +248,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                     Toast.makeText(mContext, "position==="+position, Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
     }
 
@@ -236,7 +264,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
 
         }
 
-        public void setData(List<ResultBeanData.ResultBean.ActInfoBean> act_info) {
+        public void setData(List<Fruit.REQUESTBean> fruitBean) {
 
             act_viewpager.setPageMargin(20);//设置page间间距，自行根据需求设置
 //            act_viewpager.setOffscreenPageLimit(3);//>=3
@@ -249,7 +277,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
             act_viewpager.setAdapter(new PagerAdapter() {
                 @Override
                 public int getCount() {
-                    return act_info.size();
+                    return 3;
                 }
 
                 /**
@@ -262,7 +290,9 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                 public Object instantiateItem( ViewGroup container, int position) {
                     ImageView imageView = new ImageView(mContext);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    Glide.with(mContext).load(Constants.BASE_URl_IMAGE+act_info.get(position).getIcon_url()).into(imageView);
+                    Glide.with(mContext).load(Constants.HOT ).error(R.drawable.hot3).into(imageView);
+                    //Glide.with(mContext).load(Constants.HTTP + fruitBean.get(position).getPicture()+".jpg" ).error(R.drawable.hot3).into(imageView);
+                   // Glide.with(mContext).load(Constants.TEST+fruitBean.get(position).getPicture()).into(imageView);
                     //添加到容器中
                     container.addView(imageView);
 
@@ -317,16 +347,17 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
             gv_recommend.setAdapter(adapter);
 
             //设置点击事件
-          /* gv_recommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           gv_recommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     int cover_price = fruitBean.get(position).getPrice();
                     String name = fruitBean.get(position).getName();
                     String figure = fruitBean.get(position).getPicture();
                     String product_id = fruitBean.get(position).getIntro();
-                    GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id);
+                    String remind = fruitBean.get(position).getRemind();
+                    GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id,remind);
                     Intent intent = new Intent(mContext, GoodsInfoActivity.class);
-                    intent.putExtra(GOODS_BEAN, goodsBean);
+                    intent.putExtra(GOODS_BEAN,fruitBean.get(position).getId());
                     mContext.startActivity(intent);
 
 
@@ -343,7 +374,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
 //
 //                    startGoodsInfoActivity(goodsBean);
                 }
-            }); */
+            });
 
         }
 
@@ -357,8 +388,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         intent.putExtra(GOODS_BEAN,goodsBean);
         mContext.startActivity(intent);
     }
-
-
     /**
      * 共有多少个item
      * @return
@@ -368,9 +397,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         //开发过程中从1-->2·····
         return 4;
     }
-
-
-
     /**
      * 得到类型
      * @param position
@@ -388,17 +414,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
             case ACT:
                 currentType = ACT;
                 break;
-//            case SECKILL:
-//                currentType = SECKILL;
-//                break;
             case RECOMMEND:
                 currentType = RECOMMEND;
                 break;
-//            case HOT:
-//                currentType = HOT;
-//                break;
         }
         return currentType;
     }
+
 
 }

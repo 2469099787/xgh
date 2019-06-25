@@ -90,7 +90,15 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
+                <TextView
+                    android:id="@+id/user_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录"
+                    android:textSize="25sp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -98,7 +106,15 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
+                <TextView
+                    android:id="@+id/user_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注册"
+                    android:textSize="25sp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -146,7 +162,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:drawableTop="@drawable/daifukuan"
-                android:text="待付款"
+                android:text="已付款"
                 android:textColor="#8e8e8e"
                 android:textSize="18sp"
                 android:gravity="center"
@@ -176,7 +192,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:drawableTop="@drawable/daiziti"
-                android:text="待自提"
+                android:text="已签收"
                 android:textColor="#8e8e8e"
                 android:textSize="18sp"
                 android:gravity="center"

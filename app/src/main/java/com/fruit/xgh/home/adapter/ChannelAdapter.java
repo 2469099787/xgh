@@ -60,9 +60,9 @@ public class ChannelAdapter extends BaseAdapter {
     }
 
 
-    class ViewHolder { @Bind(R.id.iv_channel)
+    class ViewHolder { @Bind(R.id.image_channel)
     ImageView ivChannel;
-        @Bind(R.id.tv_channel)
+        @Bind(R.id.name_channel)
         TextView tvChannel;
 
         ViewHolder(View view) {

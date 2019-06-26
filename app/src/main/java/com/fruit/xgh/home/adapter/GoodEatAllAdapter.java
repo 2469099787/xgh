@@ -1,4 +1,4 @@
-package com.fruit.xgh.type.adapter;
+package com.fruit.xgh.home.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,14 +16,14 @@ import com.fruit.xgh.Fruit;
 import com.fruit.xgh.R;
 import com.fruit.xgh.utils.Constants;
 
-public class ItemOrdinaryRightAdapter extends BaseAdapter {
+public class GoodEatAllAdapter extends BaseAdapter {
 
     private List<Fruit.REQUESTBean> objects = new ArrayList<Fruit.REQUESTBean>();
 
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public ItemOrdinaryRightAdapter(Context context,List<Fruit.REQUESTBean> objects) {
+    public GoodEatAllAdapter(Context context,List<Fruit.REQUESTBean> objects) {
         this.objects = objects;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
@@ -48,7 +47,7 @@ public class ItemOrdinaryRightAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_ordinary_right, null);
+            convertView = layoutInflater.inflate(R.layout.good_eat_all, null);
             convertView.setTag(new ViewHolder(convertView));
         }
         initializeViews((Fruit.REQUESTBean)getItem(position), (ViewHolder) convertView.getTag());
@@ -57,28 +56,22 @@ public class ItemOrdinaryRightAdapter extends BaseAdapter {
 
     private void initializeViews(Fruit.REQUESTBean object, ViewHolder holder) {
         //TODO implement
-        Glide.with(context).load(Constants.HTTP +object.getPicture()+".jpg").into(holder.ivOrdinaryRight);
-        holder.tvOrdinaryRight.setText(object.getName()+"");
-        holder.ipCover.setText("￥"+object.getPrice()+"");
-        holder.tvNumber.setText(object.getSpecificaion()+"/份");
-        holder.dengji.setText(object.getGrade()+"");
+        Glide.with(context).load(Constants.HTTP +object.getPicture()+".jpg").into(holder.image);
+        holder.name.setText(object.getName()+"");
+        //holder.ipCover.setText("￥"+object.getPrice()+"");
+        holder.fen.setText(object.getSpecificaion()+"/份");
+       // holder.dengji.setText(object.getGrade()+"");
     }
 
     protected class ViewHolder {
-        private LinearLayout llRoot;
-        private ImageView ivOrdinaryRight;
-        private TextView tvOrdinaryRight;
-        private TextView ipCover;
-        private TextView tvNumber;
-        private TextView dengji;
+        private ImageView image;
+    private TextView name;
+    private TextView fen;
 
         public ViewHolder(View view) {
-            llRoot = (LinearLayout) view.findViewById(R.id.ll_root);
-            ivOrdinaryRight = (ImageView) view.findViewById(R.id.iv_ordinary_right);
-            tvOrdinaryRight = (TextView) view.findViewById(R.id.tv_ordinary_right);
-            ipCover = (TextView) view.findViewById(R.id.ip_cover);
-            tvNumber = (TextView) view.findViewById(R.id.tvNumber);
-            dengji = (TextView)view.findViewById(R.id.dengji);
+            image = (ImageView) view.findViewById(R.id.image);
+            name = (TextView) view.findViewById(R.id.name);
+            fen = (TextView) view.findViewById(R.id.fen);
         }
     }
 }

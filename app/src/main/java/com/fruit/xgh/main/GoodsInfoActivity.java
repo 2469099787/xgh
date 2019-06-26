@@ -2,6 +2,7 @@ package com.fruit.xgh.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.fruit.xgh.Fruit;
 import com.fruit.xgh.R;
+import com.fruit.xgh.ShoppingCart.utils.CartProvider;
 import com.fruit.xgh.home.bean.GoodsBean;
 import com.fruit.xgh.utils.Constants;
 import com.fruit.xgh.utils.HttpUtils;
@@ -50,9 +52,20 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
     private TextView tvMoreShare;
     private TextView tvMoreSearch;
     private TextView tvMoreHome;
+
+    private TextView guigeQian;
+    private TextView guigeHou;
+    private TextView xiaoLiang;
+    private TextView dengjiQing;
+    private TextView dengjiHou;
+    private TextView chuCun;
+    private TextView yuanJia;
+
     private GoodsBean goodsBean;
     private Fruit.REQUESTBean fruitBean;
     private List<Fruit.REQUESTBean> fruit_list;
+
+    private CartProvider cartProvider;
 
     /**
      * Find the Views in the layout<br />
@@ -75,6 +88,13 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
         tvGoodInfoCart = (TextView) findViewById(R.id.tv_good_info_cart);
         btnGoodInfoAddcart = (Button) findViewById(R.id.btn_good_info_addcart);
 
+        guigeQian = (TextView)findViewById(R.id.good_guige_qian);
+        guigeHou = (TextView)findViewById(R.id.guige);
+        xiaoLiang = (TextView)findViewById(R.id.good_xiaoliang);
+        dengjiQing = (TextView)findViewById(R.id.good_dengji);
+        dengjiHou = (TextView)findViewById(R.id.good_jipei);
+        chuCun  = (TextView)findViewById(R.id.chucun);
+        yuanJia = (TextView)findViewById(R.id.good_yuanjia);
         btn_more = (Button) findViewById(R.id.btn_more);
         tvMoreShare = (TextView) findViewById(R.id.tv_more_share);
         tvMoreSearch = (TextView) findViewById(R.id.tv_more_search);
@@ -96,6 +116,8 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
         tvGoodInfoCart.setOnClickListener(this);
         btnGoodInfoAddcart.setOnClickListener(this);
         tvGoodInfoCallcenter.setOnClickListener(this);
+
+        yuanJia.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     /**
@@ -109,7 +131,7 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
         if (v == ibGoodInfoBack) {
             finish();
         } else if (v == ibGoodInfoMore) {
-            // Handle clicks for ibGoodInfoMore
+//             Handle clicks for ibGoodInfoMore
             Toast.makeText(this, "更多", Toast.LENGTH_SHORT).show();
         } else if (v == btn_more) {
             // ll_root.setVisibility(View.GONE);
@@ -122,19 +144,20 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
             // Constants.isBackHome = true;
             finish();
         } else if (v == tvGoodInfoCallcenter) {
-            Toast.makeText(GoodsInfoActivity.this, "客服", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoodsInfoActivity.this, "购物车", Toast.LENGTH_SHORT).show();
 //            Intent intent = new Intent(this, CallCenterActivity.class);
 //            startActivity(intent);
         } else if (v == tvGoodInfoCollection) {
-            Toast.makeText(GoodsInfoActivity.this, "收藏", Toast.LENGTH_SHORT).show();
+            Toast.makeText(GoodsInfoActivity.this, "分享", Toast.LENGTH_SHORT).show();
         } else if (v == tvGoodInfoCart) {
-//            Toast.makeText(GoodsInfoActivity.this, "购物车", Toast.LENGTH_SHORT).show();
+           Toast.makeText(GoodsInfoActivity.this, "加入购物车", Toast.LENGTH_SHORT).show();
             // Intent intent = new Intent(this, ShoppingCartActivity.class);
             //startActivity(intent);
+            //cartProvider.addData(goodsBean);
 
         } else if (v == btnGoodInfoAddcart) {
             // Handle clicks for btnGoodInfoAddcart
-            Toast.makeText(this, "加入购物车", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "立即购买", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -144,42 +167,55 @@ public class GoodsInfoActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_info);
         findViews();
-        getInfo();
-//        Fruit.REQUESTBean goodsBean = (Fruit.REQUESTBean) getIntent().getSerializableExtra("goodsBean");
-//        if (goodsBean != null) {
-//            //Toast.makeText(this, "goodsBean=="+goodsBean.toString(), Toast.LENGTH_SHORT).show();
-//            setDataForView(goodsBean);
+        //getInfo();
+        //cartProvider = CartProvider.getInstance();
+
+        GoodsBean goodsBean = (GoodsBean) getIntent().getSerializableExtra("goodsBean");
+        if (goodsBean != null) {
+            //Toast.makeText(this, "goodsBean=="+goodsBean.toString(), Toast.LENGTH_SHORT).show();
+            setDataForView(goodsBean);
+
+        }
+    }
+
+//    private void getInfo() {
+//        new Thread(() -> {
+//            List<KeyValue> list = new ArrayList<>();
+//            list.add(new KeyValue("id",1));
+//                HttpUtils.postfrom("AppFruit_getFruitById.action", list, new HttpUtils.MyResponseHandler() {
+//                    @Override
+//                    protected void mySuccess(String s) {
+//                        Log.d(TAG, "mySuccess: "+s);
+//                    }
 //
-//        }
-    }
+//                    @Override
+//                    protected void myError(Throwable throwable, boolean b) {
+//
+//                    }
+//                });
+//        }).start();
+//    }
 
-    private void getInfo() {
-        new Thread(() -> {
-            List<KeyValue> list = new ArrayList<>();
-            list.add(new KeyValue("id",1));
-                HttpUtils.postfrom("AppFruit_getFruitById.action", list, new HttpUtils.MyResponseHandler() {
-                    @Override
-                    protected void mySuccess(String s) {
-                        Log.d(TAG, "mySuccess: "+s);
-                    }
-
-                    @Override
-                    protected void myError(Throwable throwable, boolean b) {
-
-                    }
-                });
-        }).start();
-    }
-
-    private void setDataForView(Fruit.REQUESTBean goodsBean) {
+    private void setDataForView(GoodsBean goodsBean) {
         //设置图片
-        Glide.with(this).load(Constants.HTTP + goodsBean.getPicture() + ".jpg").into(ivGoodInfoImage);
+        Glide.with(this).load(Constants.HTTP + goodsBean.getFigure() + ".jpg").into(ivGoodInfoImage);
         //设置名字
         tvGoodInfoName.setText(goodsBean.getName());
         //设置价格
-        tvGoodInfoPrice.setText("￥" + goodsBean.getPrice());
+        tvGoodInfoPrice.setText("￥" + goodsBean.getCover_price());
         //设置详情
         tvGoodInfoDesc.setText(goodsBean.getRemind());
+        //设置规格
+        guigeQian.setText(goodsBean.getSpecificaion());
+        guigeHou.setText(goodsBean.getSpecificaion());
+        //销量
+        xiaoLiang.setText(goodsBean.getSalesVolume()+"/份");
+        //级别
+        dengjiQing.setText(goodsBean.getGrade());
+        dengjiHou.setText(goodsBean.getGrade());
+        //存储
+        chuCun.setText(goodsBean.getSrorageCondition());
+
 
     }
 

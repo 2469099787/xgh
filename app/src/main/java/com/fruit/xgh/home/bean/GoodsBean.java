@@ -10,9 +10,19 @@ public class GoodsBean implements Serializable {
 
     private String name;
     private int cover_price;
+    //图片
     private String figure;
     private String product_id;
+    //详情
     private String remind;
+    //规格
+    private String specificaion;
+    //级别
+    private String grade;
+    //贮存方式
+    private String srorageCondition;
+    //销量
+    private int salesVolume;
     private int number = 1;
 
     /**
@@ -25,12 +35,16 @@ public class GoodsBean implements Serializable {
     private boolean isChildSelected;
 
 
-    public GoodsBean(String name, int cover_price, String figure, String product_id ,String remind) {
+    public GoodsBean(String name, int cover_price, String figure, String product_id, String remind, String specificaion, String grade, String srorageCondition, int salesVolume) {
         this.name = name;
         this.cover_price = cover_price;
         this.figure = figure;
         this.product_id = product_id;
         this.remind = remind;
+        this.specificaion = specificaion;
+        this.grade = grade;
+        this.srorageCondition = srorageCondition;
+        this.salesVolume = salesVolume;
     }
 
     public String getName() {
@@ -98,6 +112,33 @@ public class GoodsBean implements Serializable {
         this.remind = remind;
     }
 
+    public String getSpecificaion(){
+        return specificaion;
+    }
+    public void setSpecificaion(String specificaion){
+        this.specificaion = specificaion;
+    }
+
+    public String getGrade(){
+        return grade;
+    }
+    public void setGrade(String grade){
+        this.grade = grade;
+    }
+
+    public String getSrorageCondition(){
+        return srorageCondition;
+    }
+    public void setSrorageCondition(String srorageCondition){
+        this.srorageCondition = srorageCondition;
+    }
+
+    public int getSalesVolume(){
+        return salesVolume;
+    }
+    public void setSalesVolume(int salesVolume){
+        this.salesVolume = salesVolume;
+    }
     @Override
     public String toString() {
         return "GoodsBean{" +

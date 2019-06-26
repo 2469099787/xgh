@@ -2,6 +2,7 @@ package com.fruit.xgh.type.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.fruit.xgh.Fruit;
 import com.fruit.xgh.R;
 import com.fruit.xgh.base.BaseFragment;
+import com.fruit.xgh.home.bean.GoodsBean;
+import com.fruit.xgh.main.GoodsInfoActivity;
 import com.fruit.xgh.type.adapter.ItemOrdinaryRightAdapter;
 import com.fruit.xgh.type.adapter.TypeLeftAdapter;
 import com.fruit.xgh.type.bean.TypeBean;
@@ -41,9 +44,10 @@ public class ListFragment extends BaseFragment {
     private List<TypeBean.ResultBean> result;
     private List<Fruit.REQUESTBean> list_fruit;
 
+    private static final String GOODS_BEAN = "goodsBean";
     private Context context;
 
-    private String[] urls = new String[]{Constants.HTTP+"api/AppFruit_findFruitByNew.action", Constants.GOOD_EAT, Constants.XG, Constants.XGH,
+    private String[] urls = new String[]{Constants.HTTP+"api/AppFruit_findFruitByNew.action", Constants.XGH, Constants.XG, Constants.XGH,
             Constants.XGH, Constants.XGH};
     private String url = Constants.XGH;
 
@@ -119,6 +123,26 @@ public class ListFragment extends BaseFragment {
 //
                         ItemOrdinaryRightAdapter adapter = new ItemOrdinaryRightAdapter(mContext,list_fruit);
                         rv_right.setAdapter(adapter);
+                        rv_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                int cover_price = list_fruit.get(position).getPrice();
+                                String name = list_fruit.get(position).getName();
+                                String figure = list_fruit.get(position).getPicture();
+                                String product_id = list_fruit.get(position).getIntro();
+                                String remind = list_fruit.get(position).getRemind();
+                                String specificaion = list_fruit.get(position).getSpecificaion();
+                                String grade = list_fruit.get(position).getGrade();
+                                String srorageCondition = list_fruit.get(position).getSrorageCondition();
+                                int salesVolume = list_fruit.get(position).getSalesVolume();
+                                GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id,remind, specificaion, grade, srorageCondition, salesVolume);
+                                Intent intent = new Intent(mContext, GoodsInfoActivity.class);
+                                //intent.putExtra(GOODS_BEAN,list_fruit.get(position).getId());
+                                intent.putExtra(GOODS_BEAN,goodsBean);
+                                mContext.startActivity(intent);
+                            }
+                        });
+
 
                         GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
 
@@ -174,14 +198,11 @@ public class ListFragment extends BaseFragment {
 
     }
 
+
     private void processData(String json) {
         Gson gson = new Gson();
         Fruit typeBean = gson.fromJson(json, Fruit.class);
         list_fruit = typeBean.getREQUEST();
 
-//        for(int i=0;i<list_fruit.size();i++){
-//           list_fruit.get(i).getClassify().getId();
-//
-//        }
     }
 }

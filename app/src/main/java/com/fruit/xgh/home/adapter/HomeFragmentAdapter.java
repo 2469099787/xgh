@@ -1,11 +1,8 @@
 package com.fruit.xgh.home.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +24,6 @@ import com.fruit.xgh.home.bean.GoodsBean;
 import com.fruit.xgh.home.bean.ResultBeanData;
 import com.fruit.xgh.home.fragment.GoodEatFragment;
 import com.fruit.xgh.main.GoodsInfoActivity;
-import com.fruit.xgh.main.MyApplication;
 import com.fruit.xgh.utils.Constants;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -41,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
-import static com.baidu.location.d.b.i;
 
 public class HomeFragmentAdapter extends RecyclerView.Adapter {
     /**
@@ -218,12 +213,19 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         public GridView gvChannel;
         public Context mContext;
         private TextView tuijian_p;
+        private TextView shuiGuo;
+        private TextView qianDao;
+        private TextView youHui;
+
 
         public ChannelViewHolder(View itemView, Context mContext) {
             super(itemView);
             this.mContext = mContext;
             gvChannel = (GridView) itemView.findViewById(R.id.gv_channel);
             tuijian_p = (TextView) itemView.findViewById(R.id.tj_p);
+            shuiGuo = (TextView) itemView.findViewById(R.id.shuiguo);
+            qianDao = (TextView) itemView.findViewById(R.id.qiandao);
+            youHui = (TextView) itemView.findViewById(R.id.youhui);
 
             tuijian_p.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -231,9 +233,33 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                     Log.e(TAG,"mmm");
                     Toast.makeText(mContext, "推荐", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(mContext, GoodEatFragment.class);
-                    mContext.startActivity(intent);
+//                    Intent intent = new Intent(mContext, GoodEatFragment.class);
+//                    mContext.startActivity(intent);
 
+                }
+            });
+
+            shuiGuo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e(TAG,"mmm");
+                    Toast.makeText(mContext, "新鲜水果", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            qianDao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e(TAG,"mmm");
+                    Toast.makeText(mContext, "签到有礼", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            youHui.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e(TAG,"mmm");
+                    Toast.makeText(mContext, "优惠券", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -355,24 +381,16 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
                     String figure = fruitBean.get(position).getPicture();
                     String product_id = fruitBean.get(position).getIntro();
                     String remind = fruitBean.get(position).getRemind();
-                    GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id,remind);
+                    String specificaion = fruitBean.get(position).getSpecificaion();
+                    String grade = fruitBean.get(position).getGrade();
+                    String srorageCondition = fruitBean.get(position).getSrorageCondition();
+                    int salesVolume = fruitBean.get(position).getSalesVolume();
+                    GoodsBean goodsBean = new GoodsBean(name, cover_price, figure, product_id,remind, specificaion, grade, srorageCondition, salesVolume);
                     Intent intent = new Intent(mContext, GoodsInfoActivity.class);
-                    intent.putExtra(GOODS_BEAN,fruitBean.get(position).getId());
+                    //intent.putExtra(GOODS_BEAN,fruitBean.get(position).getId());
+                    intent.putExtra(GOODS_BEAN,goodsBean);
                     mContext.startActivity(intent);
 
-
-
-
-
-//                    Toast.makeText(mContext, "position=="+position, Toast.LENGTH_SHORT).show();
-//                    ResultBeanData.ResultBean.RecommendInfoBean recommendInfoBean=recommend_info.get(position);
-//                    GoodsBean goodsBean = new GoodsBean();
-//                    goodsBean.setCover_price(recommendInfoBean.getCover_price());
-//                    goodsBean.setFigure(recommendInfoBean.getFigure());
-//                    goodsBean.setName(recommendInfoBean.getName());
-//                    goodsBean.setProduct_id(recommendInfoBean.getProduct_id());
-//
-//                    startGoodsInfoActivity(goodsBean);
                 }
             });
 

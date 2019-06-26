@@ -19,7 +19,6 @@
             android:layout_gravity="center_horizontal"
             />
         <TextView
-            android:onClick="tj_text"
             android:layout_marginTop="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +37,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/shuiguo"
             android:layout_width="47dp"
             android:layout_height="43dp"
             android:background="@drawable/shuiguo"
@@ -62,6 +62,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/qiandao"
             android:layout_width="47dp"
             android:layout_height="43dp"
             android:background="@drawable/qiandao"
@@ -86,6 +87,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/youhui"
             android:layout_width="47dp"
             android:layout_height="43dp"
             android:background="@drawable/youhuijuan"

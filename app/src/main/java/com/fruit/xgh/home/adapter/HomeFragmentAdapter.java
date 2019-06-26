@@ -358,7 +358,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter {
         private Context mContext;
         private TextView tv_more_recommend;
         private GridView gv_recommend;
-        private RecommendGridViewAdapter adapter;
+        //private RecommendGridViewAdapter adapter;
         public RecommendViewHolder(View itemView, Context mContext) {
             super(itemView);
             this.mContext = mContext;
